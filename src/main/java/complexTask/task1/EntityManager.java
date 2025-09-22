@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 public class EntityManager<T extends Entity> {
     private CopyOnWriteArrayList<T> entities = new CopyOnWriteArrayList<>();
 
-    private void add(T entity) {
+    public void add(T entity) {
         entities.add(entity);
     }
 
-    private boolean remove(T entity) {
+    public boolean remove(T entity) {
         return entities.remove(entity);
     }
 
@@ -31,8 +31,8 @@ public class EntityManager<T extends Entity> {
     }
 
     public List<T> filterByActive(boolean isActive){
-        return entities.stream().filter(entity -> entity.isActive())
+        return entities.stream()
+                .filter(entity -> entity.isActive() == isActive) // сравниваем с параметром
                 .collect(Collectors.toList());
-
     }
 }
